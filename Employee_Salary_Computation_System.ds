@@ -1,0 +1,1358 @@
+/*
+ * Author       : karthikeyan.g.2024.cse_ra727
+ * Generated on : 10-Nov-2026 09:25:29
+ * Version      : 1.0
+ */
+ application "Employee Salary Computation System"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "America/Los_Angeles"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form employee
+		{
+			displayname = "Employee"
+			success message = "Employee Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			name
+			(
+    			type = name
+				displayname = "Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			email
+			(
+    			type = email
+				displayname = "Email"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			designation
+			(
+				type = picklist
+				displayname = "Designation"
+				values = {"Assistant Manager","Executive","Intern","Accountant","Manager"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			basic_pay
+			(
+				displayname = "Basic Pay"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			employee_code
+			(
+    			type = text
+				displayname = "Employee Code"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			department
+			(
+				type = picklist
+				displayname = "Department"
+				values = {"Finance","HR","IT","Admin","Operations"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			phone_number
+			(
+    			type = phonenumber
+				displayname = "Phone Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			address
+			(
+    			type = address
+				displayname = "Address"
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+	     			 visibility = false
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+	     			 visibility = false
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+	     			 visibility = false
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+	     			 visibility = false
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+	     			 visibility = false
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "Latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "Longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			status
+			(
+				type = radiobuttons
+				displayname = "Status"
+				values = {"Active","Inactive"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			joining_date
+			(
+    			type = date
+				displayname = "Joining Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+			blueprint components
+			{
+				stages = {"Employee Data Entry","Pending HR Review","Approved","Pending Corrections","Rejected","IT Setup Required","Payroll Setup Required","Onboarding Complete"}
+			}
+		}
+		form payslip
+		{
+			displayname = "Payslip"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			employee
+			(
+				type = list	
+				displayname = "Employee"
+				values  = employee.ID
+    			displayformat = [name.first_name]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			month_1
+			(
+				type = picklist
+				displayname = "Month"
+				values = {"June","October","December","May","September","March","July","January","February","April","August","November"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			year_1
+			(
+				type = number
+				displayname = "Year"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			days_worked
+			(
+				type = number
+				displayname = "Days Worked"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			basic_earned
+			(
+				displayname = "Basic Earned"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			da
+			(
+				displayname = "DA"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			hra
+			(
+				displayname = "HRA"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			gross
+			(
+				displayname = "Gross"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			pf
+			(
+				displayname = "PF"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			net_pay
+			(
+				displayname = "Net Pay"
+				type = USD
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			payslip_code
+			(
+    			type = text
+				displayname = "Payslip Code"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			calculation_date
+			(
+    			type = datetime
+				displayname = "Calculation Date"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+			blueprint components
+			{
+				stages = {"Payslip Draft Created","Calculation Pending","Calculation In Progress","Calculation Complete","Pending Approval","Approved","Processing Payment","Payment Processed","Payment Failed","Payslip Generated"}
+			}
+		}
+	}
+	reports
+	{
+		list payslip_Report
+		{
+			displayName = "Payslip Report"
+			show all rows from payslip    
+			(
+				employee as "Employee"
+				month_1 as "Month"
+				year_1 as "Year"
+				days_worked as "Days Worked"
+				basic_earned as "Basic Earned"
+				(
+					display = total,average,min,max	
+				)
+				da as "DA"
+				(
+					display = total,average,min,max	
+				)
+				hra as "HRA"
+				(
+					display = total,average,min,max	
+				)
+				gross as "Gross"
+				(
+					display = total,average,min,max	
+				)
+				pf as "PF"
+				(
+					display = total,average,min,max	
+				)
+				net_pay as "Net Pay"
+				(
+					display = total,average,min,max	
+				)
+				payslip_code as "Payslip Code"
+				calculation_date as "Calculation Date"
+			)
+		}
+		list employee_Report
+		{
+			displayName = "All Employees"
+			show all rows from employee    
+			(
+				name  as "Name"
+				email as "Email"
+				designation as "Designation"
+				basic_pay as "Basic Pay"
+				(
+					display = total,average,min,max	
+				)
+				employee_code as "Employee Code"
+				department as "Department"
+				address  as "Address"
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				phone_number as "Phone Number"
+				status as "Status"
+				joining_date as "Joining Date"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (designation == "Accountant")
+				fields = [designation]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (designation == "Assistant Manager")
+				fields = [designation]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (designation == "Executive")
+				fields = [designation]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+				"New Formatting4"
+				{
+				condition = (designation == "Manager")
+				fields = [designation]
+				format = "color:#ffffff;background-color:#3598db;"
+				}
+			)
+		}
+		kanban employee_by_designation
+		{
+			displayName = "Designations"
+			show all rows from employee    
+			(
+				name  as "Name"
+				email as "Email"
+				designation as "Designation"
+				basic_pay as "Basic Pay"
+				(
+					display = total,average,min,max	
+				)
+				employee_code as "Employee Code"
+				department as "Department"
+				address  as "Address"
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				phone_number as "Phone Number"
+				status as "Status"
+				joining_date as "Joining Date"
+			)
+			options
+			(
+	 			display field = designation
+	 		)
+		}
+	}
+	pages
+	{
+		page DashBoard
+		{
+			displayname = "Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='60%'\n   \t>\n\t<chart \n\telementName='Chart 1'\n\n\t\n\ttitle = 'Status by Basic Pay'\n\t\n\t\ttitleSize = '16px'\n\ttype = 'Bar'\n\txtitle = 'Status'\n\tytitle = 'Basic Pay'\n\tbgColor = 'rgb(255, 255, 255)'\n\ttheme = 'theme4'\n\tlegendPos = 'none'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'employee'\n\txfield = 'status'\n\tyfields = 'sum:basic_pay'\n\tgroupBy = 'name'\n\t\tDelugeCriteria = 'status is not null &amp;&amp; status != &quot;&quot;'\n/>\n\n</column><column\n   \t\t width='20%'\n   \t>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Panel 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginRight = '10px' \n\tmarginBottom = '0px'\n\tmarginTop = '10px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#0CC197'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'business-percentage-39'\n\tsize = '20px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginTop = '10px'\n\tcolor = '#0CC197'\n\tsize = '24px'\n\tbold = 'true' \n\tfontFamily = 'lato, arimo, sans-serif' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tdecimalPlaces = '2'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.payslip.gross.sum'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '10px'\n\tbgColor = '#0CC197'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginBottom = '5px'\n\tcolor = '#FFFFFF'\n\tsize = '16px'\n\tfontFamily = 'lato, arimo, sans-serif' \n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Total Gross'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Panel 2'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginRight = '10px' \n\tmarginBottom = '0px'\n\tmarginTop = '10px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#FB7D56'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'media-1-volume-up'\n\tsize = '20px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginTop = '10px'\n\tcolor = '#FB7D56'\n\tsize = '24px'\n\tbold = 'true' \n\tfontFamily = 'lato, arimo, sans-serif' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tdecimalPlaces = '2'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.payslip.basic_earned.sum'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '10px'\n\tbgColor = '#FB7D56'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginBottom = '5px'\n\tcolor = '#FFFFFF'\n\tsize = '16px'\n\tfontFamily = 'lato, arimo, sans-serif' \n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Total Basic Earned'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row>\n</column><column\n   \t\t width='20%'\n   \t>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Panel 3'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginRight = '10px' \n\tmarginBottom = '0px'\n\tmarginTop = '10px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#00BDDE'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'media-1-volume-off'\n\tsize = '20px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginTop = '10px'\n\tcolor = '#00BDDE'\n\tsize = '24px'\n\tbold = 'true' \n\tfontFamily = 'lato, arimo, sans-serif' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tdecimalPlaces = '2'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.payslip.da.sum'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '10px'\n\tbgColor = '#00BDDE'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginBottom = '5px'\n\tcolor = '#FFFFFF'\n\tsize = '16px'\n\tfontFamily = 'lato, arimo, sans-serif' \n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Total Da'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Panel 4'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginRight = '10px' \n\tmarginBottom = '0px'\n\tmarginTop = '10px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#647CF9'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'shopping-delivery-time'\n\tsize = '20px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginTop = '10px'\n\tcolor = '#647CF9'\n\tsize = '24px'\n\tbold = 'true' \n\tfontFamily = 'lato, arimo, sans-serif' \n\ttype = 'Form Data'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\tdisplayType = 'actual'\n\tdecimalPlaces = '2'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t  value = 'thisapp.payslip.hra.sum'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '10px'\n\tbgColor = '#647CF9'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginBottom = '5px'\n\tcolor = '#FFFFFF'\n\tsize = '16px'\n\tfontFamily = 'lato, arimo, sans-serif' \n\ttype = 'Text'\n\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\n\n\n\t  value = 'Total HRA'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<chart \n\telementName='Chart 2'\n\n\t\n\ttitle = 'Distribution by Status'\n\t\n\ttype = 'Pie'\n\txtitle = 'Status'\n\tytitle = 'Status'\n\tbgColor = 'rgb(255, 255, 255)'\n\ttheme = 'theme3'\n\tlegendPos = 'center.top'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'employee'\n\txfield = 'status'\n\tyfields = 'count:status'\n\tgroupBy = 'name'\n\t\tDelugeCriteria = 'status is not null &amp;&amp; status != &quot;&quot;'\n/>\n\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'payslip_Report'\n\t\n\t\tiszreport = 'false'\n\t\t\t\t\tzc_Footer = 'false'\n\t\t\t\t\tzc_AddRec = 'false'\n\t\t\t\t\tzc_EditRec = 'false'\n\t\t\t\t\tzc_Print = 'false'\n\t\t\t\t\tzc_Export = 'false'\n\t\t\t\t\tzc_DelRec = 'false'\n\t\t\t\t\tzc_DuplRec = 'false'\n\t\t\t\t\tzc_Search = 'false'\n\t\t\t\t\tzc_EditBulkRec = 'false'\n\t\t\t\t\tzc_BulkDelete = 'false'\n\t\t\t\t\tzc_BulkDuplicate = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			validate_duplicate_payslip as "Validate Duplicate Payslip Entry"
+			{
+				type =  form
+				form = payslip
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Check if employee and month combination already exists in payslip form
+										existingPayslips = payslip[employee.ID == input.employee.ID && month_1 == input.month_1 && year_1 == input.year_1];
+										// If records exist, display error and cancel submission
+										if(existingPayslips.count() > 0)
+										{
+											alert "Error: A payslip for this employee and month already exists. Please check your input.";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+		}
+
+		schedule
+		{
+			monthly_financial_report as "Monthly Financial Report Generation"
+			{
+				type =  schedule
+					status = inactive
+				start = "2024-05-26 15:53:12"
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						// Fetch all payslip records for the current month and year
+										// Assuming the workflow runs on the 1st of each month
+										// We need to get payslips where month_1 matches current month and year_1 matches current year
+										// Get current date components
+										currentDate = zoho.currentdate;
+										yearValue = currentDate.getYear();
+										monthValue = currentDate.getMonth();
+										// Define the month name based on current month number
+										monthName = "";
+										if(monthValue == 1)
+										{
+											monthName = "January";
+										}
+										else if(monthValue == 2)
+										{
+											monthName = "February";
+										}
+										else if(monthValue == 3)
+										{
+											monthName = "March";
+										}
+										else if(monthValue == 4)
+										{
+											monthName = "April";
+										}
+										else if(monthValue == 5)
+										{
+											monthName = "May";
+										}
+										else if(monthValue == 6)
+										{
+											monthName = "June";
+										}
+										else if(monthValue == 7)
+										{
+											monthName = "July";
+										}
+										else if(monthValue == 8)
+										{
+											monthName = "August";
+										}
+										else if(monthValue == 9)
+										{
+											monthName = "September";
+										}
+										else if(monthValue == 10)
+										{
+											monthName = "October";
+										}
+										else if(monthValue == 11)
+										{
+											monthName = "November";
+										}
+										else if(monthValue == 12)
+										{
+											monthName = "December";
+										}
+										// Fetch payslips for current month and year
+										payslipRecords = payslip[month_1 == monthName && year_1 == yearValue];
+										// Calculate total gross and net pay
+										if(payslipRecords.count() > 0)
+										{
+											totalGross = 0;
+											totalNetPay = 0;
+											for each  payslip in payslipRecords
+											{
+												if(payslip.gross != null)
+												{
+													totalGross = totalGross + payslip.gross;
+												}
+												if(payslip.net_pay != null)
+												{
+													totalNetPay = totalNetPay + payslip.net_pay;
+												}
+											}
+											// Prepare email message
+											emailSubject = "Monthly Financial Summary - " + monthName + " " + yearValue.toString();
+											emailMessage = "<p>Dear HR Team,</p>";
+											emailMessage = emailMessage.concat("<p>Please find below the monthly financial summary for " + monthName + " " + yearValue.toString() + ":</p>");
+											emailMessage = emailMessage.concat("<ul>");
+											emailMessage = emailMessage.concat("<li>Total Payslips Processed: " + payslipRecords.count().toString() + "</li>");
+											emailMessage = emailMessage.concat("<li>Total Gross Pay: " + totalGross.toString() + "</li>");
+											emailMessage = emailMessage.concat("<li>Total Net Pay: " + totalNetPay.toString() + "</li>");
+											emailMessage = emailMessage.concat("</ul>");
+											emailMessage = emailMessage.concat("<p>Best Regards,</p>");
+											emailMessage = emailMessage.concat("<p>Salary Computation System</p>");
+											// Send email to HR
+											sendmail
+											[
+												from :zoho.loginuserid
+												to :"hr@company.com"
+												subject :emailSubject
+												message :emailMessage
+												content type :HTML
+											]
+										}
+										else
+										{
+											// No payslips found for the current month
+											emailSubject = "Monthly Financial Summary - " + monthName + " " + yearValue.toString() + " (No Records)";
+											emailMessage = "<p>Dear HR Team,</p>";
+											emailMessage = emailMessage.concat("<p>No payslip records found for " + monthName + " " + yearValue.toString() + ".</p>");
+											emailMessage = emailMessage.concat("<p>Best Regards,</p>");
+											emailMessage = emailMessage.concat("<p>Salary Computation System</p>");
+											sendmail
+											[
+												from :zoho.loginuserid
+												to :"hr@company.com"
+												subject :emailSubject
+												message :emailMessage
+												content type :HTML
+											]
+										}
+					)
+					}
+				}
+			}
+		}
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"HR Administrator"
+			{
+				name = "HR Administrator"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Manage employee records including hiring, status changes, and designation updates \n"
+				ModulePermissions
+				{
+					employee
+					{
+						enabled= Create,Viewall,Modifyall,Import,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							employee_by_designation={"View","Edit","Delete"}
+							employee_Report={"View","Edit","Delete"}
+						}
+					}
+					payslip
+					{
+						enabled= Create,Viewall,Modifyall,Import,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							payslip_Report={"View","Edit","Delete"}
+						}
+					}
+				}
+			}
+			"Finance Manager"
+			{
+				name = "Finance Manager"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Review and approve monthly financial reports generated by the system \n"
+				ModulePermissions
+				{
+					employee
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							employee_by_designation={"View"}
+							employee_Report={"View"}
+						}
+					}
+					payslip
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							payslip_Report={"View"}
+						}
+					}
+				}
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"System Auditor"
+			{
+				name = "System Auditor"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Monitor calculation dates and logs to ensure timely processing \n"
+				ModulePermissions
+				{
+					employee
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							employee_by_designation={"View"}
+							employee_Report={"View"}
+						}
+					}
+					payslip
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							payslip_Report={"View"}
+						}
+					}
+				}
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Payroll Officer"
+			{
+				name = "Payroll Officer"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Calculate gross and net pay based on days worked and allowances \n"
+				ModulePermissions
+				{
+					employee
+					{
+						enabled= Create,Viewall,Modifyall,Import,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							employee_by_designation={"View","Edit","Delete"}
+							employee_Report={"View","Edit","Delete"}
+						}
+					}
+					payslip
+					{
+						enabled= Create,Viewall,Modifyall,Import,Export,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							payslip_Report={"View","Edit","Delete"}
+						}
+					}
+				}
+			}
+			"Employee"
+			{
+				name = "Employee"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Receive automated email notifications with monthly payslips \n"
+				ModulePermissions
+				{
+					employee
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							employee_by_designation={"Edit"}
+							employee_Report={"Edit"}
+						}
+					}
+					payslip
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							payslip_Report={"View"}
+						}
+					}
+				}
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			"Department Head"
+			{
+				name = "Department Head"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Request salary reports for specific departments like IT or HR \n"
+				ModulePermissions
+				{
+					employee
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							employee_by_designation={"View"}
+							employee_Report={"View"}
+						}
+					}
+					payslip
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							payslip_Report={"View"}
+						}
+					}
+				}
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+
+	web
+	{
+		forms
+		{
+			form employee
+			{
+				label placement = left
+			}
+			form payslip
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report payslip_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								employee as "Employee"
+								month_1 as "Month"
+								year_1 as "Year"
+								days_worked as "Days Worked"
+								basic_earned as "Basic Earned"
+								da as "DA"
+								hra as "HRA"
+								gross as "Gross"
+								pf as "PF"
+								net_pay as "Net Pay"
+								payslip_code as "Payslip Code"
+								calculation_date as "Calculation Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								employee as "Employee"
+								month_1 as "Month"
+								year_1 as "Year"
+								days_worked as "Days Worked"
+								basic_earned as "Basic Earned"
+								da as "DA"
+								hra as "HRA"
+								gross as "Gross"
+								pf as "PF"
+								net_pay as "Net Pay"
+								payslip_code as "Payslip Code"
+								calculation_date as "Calculation Date"
+							)
+						)
+						datablock2
+						(
+		     				title = "Employee"
+		     				related field = employee
+							fields
+							(
+								name as "Name"
+								email as "Email"
+								designation as "Designation"
+								basic_pay as "Basic Pay"
+								employee_code as "Employee Code"
+								department as "Department"
+								phone_number as "Phone Number"
+								address as "Address"
+								status as "Status"
+								joining_date as "Joining Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report employee_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								name as "Name"
+								email as "Email"
+								designation as "Designation"
+								basic_pay as "Basic Pay"
+								employee_code as "Employee Code"
+								department as "Department"
+								phone_number as "Phone Number"
+								address as "Address"
+								status as "Status"
+								joining_date as "Joining Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+		     				title = "Overview"
+							fields
+							(
+								name as "Name"
+								email as "Email"
+								designation as "Designation"
+								basic_pay as "Basic Pay"
+								employee_code as "Employee Code"
+								department as "Department"
+								phone_number as "Phone Number"
+								address as "Address"
+								status as "Status"
+								joining_date as "Joining Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+			report employee_by_designation
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								name as "Name"
+								employee_code as "Employee Code"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+								Add 
+								Import 
+								Export 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								name as "Name"
+								email as "Email"
+								designation as "Designation"
+								basic_pay as "Basic Pay"
+								employee_code as "Employee Code"
+								department as "Department"
+								phone_number as "Phone Number"
+								address as "Address"
+								status as "Status"
+								joining_date as "Joining Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+								Print 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Section_1
+				{
+					displayname = "Dashboard"
+					icon = "ui-1-dashboard-half"
+					page DashBoard
+					{
+						icon = "ui-1-dashboard-half"
+					}
+				}
+				section Section_2
+				{
+					displayname = "Payslip"
+					icon = "tech-desktop"
+					form  payslip
+					{
+						icon = "ui-1-bold-add"
+					}
+					report payslip_Report
+					{
+						icon = "business-laptop-71"
+					}
+				}
+				section Section_3
+				{
+					displayname = "Employees"
+					icon = "users-single-04"
+					form  employee
+					{
+						icon = "ui-1-bold-add"
+					}
+					report employee_Report
+					{
+						icon = "users-single-04"
+					}
+					report employee_by_designation
+					{
+						icon = "location-pins"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = solid
+					show = {space,section,component}
+				}
+			}
+		}
+		customize
+		{
+			new theme = 6
+			font = "rubik"
+			color options
+			{
+				color = "6"
+			}
+			logo
+			{
+				preference = "none"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = green
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
